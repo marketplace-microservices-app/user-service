@@ -32,7 +32,7 @@ export class KafkaConsumerService implements OnModuleInit, OnModuleDestroy {
     topic: string,
     onMessage: (payload: EachMessagePayload) => Promise<void>,
   ) {
-    await this.consumer.subscribe({ topic, fromBeginning: true });
+    await this.consumer.subscribe({ topic, fromBeginning: false });
 
     await this.consumer.run({
       eachMessage: async (payload) => {
