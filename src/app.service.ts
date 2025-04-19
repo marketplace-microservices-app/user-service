@@ -70,4 +70,27 @@ export class AppService implements OnModuleInit {
 
     console.log(`User created as ${role} as successfully!`);
   }
+
+  async getSellerBySellerId(sellerId: string) {
+    const seller = await this._sellerEntity
+      .findOne({ where: { id: sellerId } })
+      .catch((err) => {
+        console.error(err);
+        return {
+          statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+          message: 'Something went wrong!',
+        };
+      });
+
+    if (!seller) {
+      return {
+        statusCode: HttpStatus.NOT_FOUND,
+        message: 'Seller not found!',
+      };
+    }
+
+    return {
+      data: seller,
+    };
+  }
 }
