@@ -93,4 +93,27 @@ export class AppService implements OnModuleInit {
       data: seller,
     };
   }
+
+  async getBuyerDetailsFromUserId(userId: string) {
+    const buyer = await this._buyerEntity
+      .findOne({ where: { user_id: userId } })
+      .catch((err) => {
+        console.error(err);
+        return {
+          statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+          message: 'Something went wrong!',
+        };
+      });
+
+    if (!buyer) {
+      return {
+        statusCode: HttpStatus.NOT_FOUND,
+        message: 'Buyer not found!',
+      };
+    }
+
+    return {
+      data: buyer,
+    };
+  }
 }

@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Post } from '@nestjs/common';
 import { AppService } from './app.service';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 
@@ -11,5 +11,11 @@ export class AppController {
   getSellerBySellerId(@Payload() data: { sellerId: string }) {
     const { sellerId } = data;
     return this.appService.getSellerBySellerId(sellerId);
+  }
+
+  @MessagePattern('users.get-buyer-details-from-userId')
+  @Post('get-buyer-details-from-userId')
+  getBuyerDetailsFromUserId(@Payload() data: { userId: string }) {
+    return this.appService.getBuyerDetailsFromUserId(data.userId);
   }
 }
