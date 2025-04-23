@@ -18,4 +18,10 @@ export class AppController {
   getBuyerDetailsFromUserId(@Payload() data: { userId: string }) {
     return this.appService.getBuyerDetailsFromUserId(data.userId);
   }
+
+  @MessagePattern('users.get-seller-details-from-userId')
+  @Post('get-seller-details-from-userId')
+  getSellerDetailsFromUserId(@Payload() userId: string) {
+    return this.appService.getSellerDetailsFromUserId(userId);
+  }
 }
