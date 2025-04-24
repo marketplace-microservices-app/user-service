@@ -9,7 +9,7 @@ export class KafkaConsumerService implements OnModuleInit, OnModuleDestroy {
   constructor() {
     const config: KafkaConfig = {
       clientId: 'user-created-topic-consumer',
-      brokers: ['localhost:9092'],
+      brokers: [process.env.KAFKA_BROKER || ''],
     };
 
     this.kafka = new Kafka(config);
